@@ -185,6 +185,18 @@ function setBackground(image) {
     document.body.style.backgroundImage = "url('" + imagePath + "')";
 }
 
+function playRandomVideo() {
+    var randomIndex = Math.floor(Math.random() * 2) + 1;
+    var videoName;
+    if (randomIndex === 1) {
+        videoName = 'igotsmoke.mp4';
+    } else {
+        videoName = '烟distance.mp4';
+    }
+    var videoPath = "resource/" + videoName;
+    document.getElementById("selected-video").src = videoPath;
+}
+
 function playVideo(videoName) {
     var videoPath = "resource/" + videoName;
     document.getElementById("selected-video").src = videoPath;
@@ -208,6 +220,7 @@ function answerQuestion() {
 window.onload = function() {
     setInitialBackground();
     updateTime();
+    playRandomVideo(); // 在页面加载时随机播放视频
 };
 </script>
 
