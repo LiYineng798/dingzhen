@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>丁真的世界</title> <!-- 修改标题为 "丁真的世界" -->
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+h2 {
+    text-align: center;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.background-option {
+    flex: 1;
+    max-width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.background-option img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: auto; /* 居中放置 */
+}
+
+.background-option:hover {
+    transform: scale(1.1);
+}
+
+.question-box {
+    margin-bottom: 20px;
+}
+
+#answer {
+    font-weight: bold;
+    text-align: center;
+}
+
+.video-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+video {
+    width: 100%;
+    max-width: 800px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>丁真的世界</h2> <!-- 修改标题为 "丁真的世界" -->
+
+    <div class="video-container">
+        <video id="selected-video" autoplay controls>
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="options">
+        <div class="background-option" onclick="setBackground('1.png')">
+            <img src="resource/1.png" alt="Option 1">
+        </div>
+        <div class="background-option" onclick="setBackground('2.png')">
+            <img src="resource/2.png" alt="Option 2">
+        </div>
+    </div>
+
+    <div class="options">
+        <button onclick="playVideo('igotsmoke.mp4')">播放 'igotsmoke.mp4'</button> <!-- 添加播放 igotsmoke.mp4 的按钮 -->
+        <button onclick="playVideo('烟distance.mp4')">播放 '烟distance.mp4'</button> <!-- 添加播放 烟distance.mp4 的按钮 -->
+    </div>
+
+    <form onsubmit="return calculateSum();">
+        <label for="num1">数字1：</label>
+        <input type="text" id="num1">
+        <label for="num2">数字2：</label>
+        <input type="text" id="num2">
+        <button type="submit">计算和</button>
+    </form>
+
+    <p id="result"></p>
+
+    <p id="time"></p>
+
+    <div class="question-box">
+        <label for="question">提问：</label>
+        <input type="text" id="question" placeholder="请输入您的问题">
+        <button onclick="return answerQuestion();">提交</button>
+    </div>
+
+    <p id="answer"></p>
+</div>
+
+<script>
+function calculateSum() {
+    var num1 = parseFloat(document.getElementById("num1").value);
+    var num2 = parseFloat(document.getElementById("num2").value);
+    
+    if (!isNaN(num1) && !isNaN(num2)) {
+        var sum = num1 + num2;
+        document.getElementById("result").innerHTML = "结果：" + sum;
+    } else {
+        document.getElementById("result").innerHTML = "请输入有效的数字";
+    }
+    // 返回 false 以避免提交表单并刷新页面
+    return false;
+}
+
+function updateTime() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+    var timeString = hours + ":" + minutes + ":" + seconds;
+    document.getElementById("time").innerHTML = "当前时间：" + timeString;
+}
+
+function setInitialBackground() {
+    var randomIndex = Math.floor(Math.random() * 2) + 1;
+    var imagePath = "resource/" + randomIndex + ".png"; // 修改图片路径
+    document.body.style.backgroundImage = "url('" + imagePath + "')";
+}
+
+function setBackground(image) {
+    var imagePath = "resource/" + image; // 修改图片路径
+    document.body.style.backgroundImage = "url('" + imagePath + "')";
+}
+
+function playVideo(videoName) {
+    var videoPath = "resource/" + videoName;
+    document.getElementById("selected-video").src = videoPath;
+}
+
+function answerQuestion() {
+    var question = document.getElementById("question").value.toLowerCase();
+    var answer;
+    
+    if (question === "你是哪个省的") {
+        answer = "我是妈妈生的！！";
+    } else {
+        answer = "我不知道，雪豹可能知道。";
+    }
+    
+    document.getElementById("answer").innerHTML = answer;
+    // 返回 false 以避免提交表单并刷新页面
+    return false;
+}
+
+window.onload = function() {
+    setInitialBackground();
+    updateTime();
+};
+</script>
+
+</body>
+</html>
